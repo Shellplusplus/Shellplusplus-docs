@@ -12,6 +12,8 @@
     "format": "biome format --write"
   },
   "dependencies": {
+    "@paper-design/shaders-react": "0.0.77",
+    "class-variance-authority": "0.7.1",
     "cnfast": "^0.0.8",
     "fumadocs-core": "16.11.5",
     "fumadocs-mdx": "15.2.0",
@@ -23,6 +25,7 @@
     "takumi-js": "^2.1.1"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.5.3",
     "@tailwindcss/postcss": "^4.3.2",
     "@types/mdx": "^2.0.14",
     "@types/node": "^26.1.1",
@@ -30,7 +33,6 @@
     "@types/react-dom": "^19.2.3",
     "postcss": "^8.5.17",
     "tailwindcss": "^4.3.2",
-    "typescript": "^6.0.3",
-    "@biomejs/biome": "^2.5.3"
+    "typescript": "^6.0.3"
   }
 }
