@@ -8,9 +8,14 @@ import { useEffect, useState } from "react";
 import { appName } from "@/lib/shared";
 
 const navigationItems = [
-  { label: "首页", href: "/" },
-  { label: "文档", href: "/docs" },
-  { label: "组件", href: "/docs/test" },
+  { label: "Documentation", href: "/docs" },
+  { label: "Blog", href: "/blog" },
+  { label: "Showcase", href: "/showcase" },
+  {
+    label: "Sponsors",
+    href: "https://fuma-nama.dev/sponsors",
+    external: true,
+  },
 ];
 
 function isActive(pathname: string, href: string) {
@@ -48,6 +53,8 @@ export function SiteNav() {
                 href={item.href}
                 className="liquid-pill"
                 data-active={isActive(pathname, item.href) || undefined}
+                target={item.external ? "_blank" : undefined}
+                rel={item.external ? "noreferrer" : undefined}
               >
                 {item.label}
               </Link>

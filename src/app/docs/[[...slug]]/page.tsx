@@ -1,37 +1,56 @@
-import { getPageImage, getPageMarkdownUrl, source } from '@/lib/source';
 import {
   DocsBody,
   DocsDescription,
   DocsPage,
   DocsTitle,
-  MarkdownCopyButton,
-  ViewOptionsPopover,
-} from 'fumadocs-ui/layouts/docs/page';
-import { notFound } from 'next/navigation';
-import { getMDXComponents } from '@/components/mdx';
-import type { Metadata } from 'next';
-import { createRelativeLink } from 'fumadocs-ui/mdx';
-import { gitConfig } from '@/lib/shared';
+} from "fumadocs-ui/layouts/docs/page";
+import { createRelativeLink } from "fumadocs-ui/mdx";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { getMDXComponents } from "@/components/mdx";
+import { getPageImage, source } from "@/lib/source";
 
-export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
+function getTextContent(value: unknown): string {
+  if (typeof value === "string" || typeof value === "number") {
+    return String(value);
+  }
+
+  if (Array.isArray(value)) {
+    return value.map(getTextContent).join("");
+  }
+
+  if (value && typeof value === "object" && "props" in value) {
+    return getTextContent(
+      (value as { props?: { children?: unknown } }).props?.children,
+    );
+  }
+
+  return "";
+}
+
+function normalizeTitle(value: unknown): string {
+  return getTextContent(value).replace(/\s+/g, " ").trim();
+}
+
+export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
   const params = await props.params;
   const page = source.getPage(params.slug);
   if (!page) notFound();
 
   const MDX = page.data.body;
-  const markdownUrl = getPageMarkdownUrl(page).url;
+  const firstHeading = page.data.toc.find((item) => item.depth === 1);
+  const titleMatchesFirstHeading =
+    normalizeTitle(page.data.title) === normalizeTitle(firstHeading?.title);
+  const showPageHeader = Boolean(page.data.title && !titleMatchesFirstHeading);
 
   return (
     <DocsPage toc={page.data.toc} full={page.data.full}>
-      <DocsTitle>{page.data.title}</DocsTitle>
-      <DocsDescription className="mb-0">{page.data.description}</DocsDescription>
-      <div className="flex flex-row gap-2 items-center border-b pb-6">
-        <MarkdownCopyButton markdownUrl={markdownUrl} />
-        <ViewOptionsPopover
-          markdownUrl={markdownUrl}
-          githubUrl={`https://github.com/${gitConfig.user}/${gitConfig.repo}/blob/${gitConfig.branch}/content/docs/${page.path}`}
-        />
-      </div>
+      {showPageHeader && <DocsTitle>{page.data.title}</DocsTitle>}
+      {showPageHeader && page.data.description && (
+        <DocsDescription className="mb-0">
+          {page.data.description}
+        </DocsDescription>
+      )}
       <DocsBody>
         <MDX
           components={getMDXComponents({
@@ -48,7 +67,9 @@ export async function generateStaticParams() {
   return source.generateParams();
 }
 
-export async function generateMetadata(props: PageProps<'/docs/[[...slug]]'>): Promise<Metadata> {
+export async function generateMetadata(
+  props: PageProps<"/docs/[[...slug]]">,
+): Promise<Metadata> {
   const params = await props.params;
   const page = source.getPage(params.slug);
   if (!page) notFound();

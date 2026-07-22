@@ -1,17 +1,17 @@
-import { createMDX } from 'fumadocs-mdx/next';
+import { createMDX } from "fumadocs-mdx/next";
 
 const withMDX = createMDX();
-const basePath = process.env.PAGES_BASE_PATH ?? '';
+const basePath = process.env.PAGES_BASE_PATH ?? "";
 
 /** @type {import('next').NextConfig} */
 const config = {
-  output: 'export',
+  output: "export",
   basePath,
   trailingSlash: true,
   images: {
     unoptimized: true,
   },
-  serverExternalPackages: ['@takumi-rs/core'],
+  serverExternalPackages: ["@takumi-rs/core"],
   reactStrictMode: true,
 };
 
