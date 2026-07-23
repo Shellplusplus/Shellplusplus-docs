@@ -31,18 +31,6 @@ Android 应用支持发送单条命令，并保留最近命令和收藏命令。
 ![远程终端页面](./images/remote-terminal.jpg)
 </InvertImage>
 
-## AstroBoxV2 终端
-
-插件提供终端面板。进阶用户还可以使用源码中的双向 CLI，让终端等待 `stdout`、`stderr`
-和真实退出码：
-
-```bash
-python3 scripts/shellpp_cli.py pwd
-python3 scripts/shellpp_cli.py --timeout 60 cat /proc/meminfo
-```
-
-双向 CLI 通过本机 loopback 回调返回结果，并为每次请求使用随机 token。普通 Deeplink 只负责投递事件，不会在调用终端中等待异步结果。
-
 ## 安全提示
 
 - 不执行不了解作用的命令。
