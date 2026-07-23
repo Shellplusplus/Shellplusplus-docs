@@ -1,0 +1,19 @@
+{
+  "title": "Shell++ 文档",
+  "pages": [
+    "---欢迎---",
+    "index",
+    "choose-android-or-astrobox",
+    "supported-devices-and-platforms",
+    "---基础---",
+    "install-watch-and-lua",
+    "connect-android",
+    "connect-astrobox",
+    "---拓展---",
+    "screenshots-and-sync",
+    "remote-terminal",
+    "common-connection-issues",
+    "architecture",
+    "shellpp"
+  ]
+}

@@ -17,10 +17,10 @@ import {
   useState,
 } from "react";
 import { cn } from "@/lib/cn";
-import HeroImage from "./hero-preview.jpeg";
-import MainImg from "./main.png";
-import NotebookImg from "./notebook.png";
-import OpenAPIImg from "./openapi.png";
+import AndroidImg from "./shellpp-android.png";
+import AstroBoxImg from "./shellpp-astrobox.png";
+import HeroDevicesImg from "./shellpp-hero-main.png";
+import WatchImg from "./shellpp-watch.png";
 
 const GrainGradient = dynamic(
   () => import("@paper-design/shaders-react").then((mod) => mod.GrainGradient),
@@ -38,10 +38,9 @@ const Dithering = dynamic(
 
 export function Hero() {
   const { resolvedTheme } = useTheme();
-  const ref = useRef<HTMLImageElement | null>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
   const visible = useIsVisible(ref);
   const [showShaders, setShowShaders] = useState(false);
-  const [imageReady, setImageReady] = useState(false);
 
   useEffect(() => {
     // apply some delay, otherwise on slower devices, it errors with uniform images not being fully loaded.
@@ -52,6 +51,7 @@ export function Hero() {
 
   return (
     <>
+      <div ref={ref} className="absolute inset-0 pointer-events-none" />
       {showShaders && (
         <GrainGradient
           className="absolute inset-0 animate-fd-fade-in duration-800"
@@ -66,35 +66,18 @@ export function Hero() {
           noise={0.5}
           speed={visible ? 1 : 0}
           shape="corners"
+          fit="cover"
+          worldWidth={1000}
+          worldHeight={1000}
           minPixelRatio={1}
           maxPixelCount={1920 * 1080}
         />
       )}
-      {showShaders && (
-        <Dithering
-          width={720}
-          height={720}
-          colorBack="#00000000"
-          colorFront={resolvedTheme === "dark" ? "#DF3F00" : "#fa8023"}
-          shape="sphere"
-          type="4x4"
-          scale={0.5}
-          size={3}
-          speed={0}
-          frame={5000 * 120}
-          className="absolute animate-fd-fade-in duration-400 max-lg:bottom-[-50%] max-lg:left-[-200px] lg:top-[-5%] lg:right-0"
-          minPixelRatio={1}
-        />
-      )}
       <Image
-        ref={ref}
-        src={HeroImage}
-        alt="hero-image"
-        className={cn(
-          "absolute top-[460px] left-[20%] max-w-[1200px] rounded-xl border-2 lg:top-[400px]",
-          imageReady ? "animate-in fade-in duration-400" : "invisible",
-        )}
-        onLoad={() => setImageReady(true)}
+        src={HeroDevicesImg}
+        alt="Shell++ 手环功能界面"
+        sizes="(min-width: 1470px) 1000px, (min-width: 1024px) 68vw, 78vw"
+        className="pointer-events-none absolute right-4 bottom-0 z-1 hidden w-[78vw] select-none xl:block xl:right-[-120px] xl:bottom-[-70px] xl:w-[68vw] xl:max-w-[1000px] 2xl:bottom-[-205px]"
         priority
       />
     </>
@@ -102,7 +85,7 @@ export function Hero() {
 }
 
 export function CreateAppAnimation(props: ComponentProps<"div">) {
-  const installCmd = "pnpm create fumadocs-app";
+  const installCmd = "shell++ connect --device vela";
   const tickTime = 100;
   const timeCommandEnter = installCmd.length;
   const timeCommandRun = timeCommandEnter + 3;
@@ -142,22 +125,22 @@ export function CreateAppAnimation(props: ComponentProps<"div">) {
       <Fragment key="command_response">
         {tick > timeCommandRun + 1 && (
           <>
-            <span className="font-medium">◇ Project name</span>
-            <span>│ my-app</span>
+            <span className="font-medium">◇ 正在发现设备</span>
+            <span>│ Xiaomi Vela Watch</span>
           </>
         )}
         {tick > timeCommandRun + 2 && (
           <>
             <span>│</span>
-            <span className="font-medium">◆ Choose a framework</span>
+            <span className="font-medium">◆ 选择接收端</span>
           </>
         )}
         {tick > timeCommandRun + 3 && (
           <>
-            <span>│ ● Next.js</span>
-            <span>│ ○ Waku</span>
-            <span>│ ○ Tanstack Start</span>
-            <span>│ ○ React Router</span>
+            <span>│ ● Android</span>
+            <span>│ ○ AstroBoxV2</span>
+            <span>│</span>
+            <span>│ ✓ Shell++ 已连接</span>
           </>
         )}
       </Fragment>,
@@ -187,7 +170,7 @@ function LaunchAppWindow(props: HTMLAttributes<HTMLDivElement>) {
       <p className="text-xs text-fd-muted-foreground text-center px-4 py-2 border-b">
         localhost:3000
       </p>
-      <p className="text-sm px-4 py-2">New App launched!</p>
+      <p className="text-sm px-4 py-2">设备连接成功</p>
     </div>
   );
 }
@@ -207,16 +190,16 @@ export function PreviewImages(props: ComponentProps<"div">) {
   const [active, setActive] = useState(0);
   const previews = [
     {
-      image: MainImg,
-      name: "Docs",
+      image: WatchImg,
+      name: "手环端",
     },
     {
-      image: NotebookImg,
-      name: "Notebook",
+      image: AndroidImg,
+      name: "Android",
     },
     {
-      image: OpenAPIImg,
-      name: "OpenAPI",
+      image: AstroBoxImg,
+      name: "AstroBox",
     },
   ];
 
@@ -245,7 +228,7 @@ export function PreviewImages(props: ComponentProps<"div">) {
         <Image
           key={item.name}
           src={item.image}
-          alt="preview"
+          alt={`${item.name} 预览`}
           className={cn(
             "col-start-1 row-start-1 select-none",
             active === i
@@ -260,15 +243,15 @@ export function PreviewImages(props: ComponentProps<"div">) {
 
 const WritingTabs = [
   {
-    name: "Writer",
+    name: "日常使用",
     value: "writer",
   },
   {
-    name: "Developer",
+    name: "进阶探索",
     value: "developer",
   },
   {
-    name: "Automation",
+    name: "多端协同",
     value: "automation",
   },
 ] as const;
@@ -284,11 +267,11 @@ export function Writing({
   return (
     <div className="col-span-full my-20">
       <h2 className="text-4xl text-brand mb-8 text-center font-medium tracking-tight">
-        Anybody can write.
+        从这里开始使用 Shell++
       </h2>
       <p className="text-center mb-8 mx-auto w-full max-w-[800px]">
-        Native support for Markdown & MDX, offering intuitive, convenient and
-        extensive syntax for non-dev writers, developers, and AI agents.
+        无论你只是想快速获取截图，还是希望深入终端、文件与设备协议，
+        都可以找到适合自己的路径。
       </p>
       <div className="flex justify-center items-center gap-4 text-fd-muted-foreground mb-6">
         {WritingTabs.map((item) => (
