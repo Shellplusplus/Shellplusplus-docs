@@ -25,8 +25,9 @@ cat /proc/meminfo
 
 ## Android 终端
 
-Android 应用支持发送单条命令，并保留最近命令和收藏命令。命令请求会先收到确认，随后再接收
-实际执行结果；如果只看到确认但没有输出，请检查手环端 Lua 资源和连接日志。
+Android 应用支持发送单条命令，并保留最近命令和收藏命令。命令请求会先收到确认，随后再接收实际执行结果；如果只看到确认但没有输出，请检查手环端 Lua 资源和连接日志。
+
+![远程终端页面](./images/remote-terminal.jpg)
 
 ## AstroBoxV2 终端
 
@@ -38,8 +39,7 @@ python3 scripts/shellpp_cli.py pwd
 python3 scripts/shellpp_cli.py --timeout 60 cat /proc/meminfo
 ```
 
-双向 CLI 通过本机 loopback 回调返回结果，并为每次请求使用随机 token。普通 Deeplink 只负责
-投递事件，不会在调用终端中等待异步结果。
+双向 CLI 通过本机 loopback 回调返回结果，并为每次请求使用随机 token。普通 Deeplink 只负责投递事件，不会在调用终端中等待异步结果。
 
 ## 安全提示
 

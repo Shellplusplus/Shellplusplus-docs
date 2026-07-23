@@ -17,27 +17,35 @@ description: 准备 Shell++ Quick App 和配套设备执行资源
 
 建议从同一个 Release 下载全部组件，不要把旧版 Lua 资源与新版 RPK 混用。
 
+![Shell++ 下载页面](./images/download-page.png)
+
 ## 安装 Quick App
 
-使用当前设备环境支持的 RPK 安装工具，将 Shell++ RPK 安装到手环或手表。不同设备和调试
-环境的安装入口可能不同，本页不假设具体工具名称。
+使用表盘自定义工具或
 
-安装后先启动 Shell++，确认首页能够打开、页面可以切换，并且没有立即退出。
+[Astrobox]: https://astrobox.online/
 
-## 部署 Lua 资源
+，将 Shell++ RPK 安装到手环或手表。
 
-通过设备当前可用的 Lua 资源部署方式，将下载的 Shell++ Lua 资源写入设备。Lua 资源负责
-执行任务；缺少它时，Quick App 界面可能仍能打开，但终端、截图或设备操作不会正常完成。
+## 安装 Lua 表盘
 
-## 安装后检查
+使用表盘自定义工具或
 
-1. 打开 Shell++ Quick App。
-2. 确认应用没有提示资源缺失或初始化失败。
-3. 保持应用运行，再打开接收端。
-4. 发起握手，观察两端是否进入已连接状态。
+[Astrobox]: https://astrobox.online/
+
+，将下载的 Shell++ Lua 表盘安装。
+
+## 安装后您需要做的三件事
+
+1. 打开 Shell++快应用，往下滑找到并点击“设备与性能”
+2. 退出应用，返回表盘，点击Claude小人![Claude 表盘入口](./images/open-claude-watch-face.png)
+3. 点击start![启动 Shell++ 服务](./images/start-shellpp-service.jpg)
+4. 此时服务环境就已配置完毕
 
 如果界面正常但始终无法执行任务，优先重新检查 Lua 资源是否部署成功，以及 RPK 与 Lua
-是否来自同一版本。
+是否来自同一版本。若仍无法工作，请查看
+
+[常见连接问题]: https://shellplusplus.github.io/Shellplusplus-docs/docs/common-connection-issues/
 
 下一步：连接 [Android 配套应用](/docs/connect-android) 或
 [AstroBoxV2 插件](/docs/connect-astrobox)。
