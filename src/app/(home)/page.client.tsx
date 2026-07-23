@@ -73,13 +73,13 @@ export function Hero() {
           maxPixelCount={1920 * 1080}
         />
       )}
-      <Image
+      {/* <Image
         src={HeroDevicesImg}
         alt="Shell++ 手环功能界面"
         sizes="(min-width: 1470px) 1000px, (min-width: 1024px) 68vw, 78vw"
         className="pointer-events-none absolute right-4 bottom-0 z-1 hidden w-[78vw] select-none xl:block xl:right-[-120px] xl:bottom-[-70px] xl:w-[68vw] xl:max-w-[1000px] 2xl:bottom-[-205px]"
         priority
-      />
+      /> */}
     </>
   );
 }
