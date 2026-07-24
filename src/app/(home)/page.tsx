@@ -226,8 +226,8 @@ title: 远程终端
 ## 执行命令
 
 \`\`\`sh
-ls /data
-cat /proc/meminfo
+ls
+uname
 \`\`\`
 
 > 执行系统命令前，请确认你理解它的影响。`}
@@ -642,7 +642,7 @@ function OpenSource() {
           Explore Your Vela
         </h2>
         <p className="text-center font-mono text-xs opacity-50 mb-8">
-          让复杂能力更容易抵达。
+          让复杂能力更容易触达。
         </p>
         <div className="h-[200px] mt-auto overflow-hidden p-8 bg-gradient-to-b from-brand-secondary/10">
           <div className="mx-auto bg-radial-[circle_at_0%_100%] from-60% from-transparent to-brand-secondary size-[500px] rounded-full" />
