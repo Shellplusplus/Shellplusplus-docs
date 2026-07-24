@@ -12,6 +12,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Marquee } from "@/app/(home)/marquee";
 import { AgnosticBackground, Hero, Writing } from "@/app/(home)/page.client";
+import { MotionScope } from "@/components/motion-scope";
 import { cn } from "@/lib/cn";
 
 const headingVariants = cva("font-medium tracking-tight", {
@@ -24,7 +25,7 @@ const headingVariants = cva("font-medium tracking-tight", {
 });
 
 const buttonVariants = cva(
-  "inline-flex justify-center px-5 py-3 rounded-full font-medium tracking-tight transition-colors",
+  "motion-cta inline-flex justify-center px-5 py-3 rounded-full font-medium tracking-tight transition-colors",
   {
     variants: {
       variant: {
@@ -39,32 +40,49 @@ const buttonVariants = cva(
   },
 );
 
-const cardVariants = cva("rounded-2xl text-sm p-6 bg-origin-border shadow-lg", {
-  variants: {
-    variant: {
-      secondary: "bg-brand-secondary text-brand-secondary-foreground",
-      default: "border bg-fd-card",
+const cardVariants = cva(
+  "motion-card motion-reveal rounded-2xl text-sm p-6 bg-origin-border shadow-lg",
+  {
+    variants: {
+      variant: {
+        secondary: "bg-brand-secondary text-brand-secondary-foreground",
+        default: "border bg-fd-card",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
     },
   },
-  defaultVariants: {
-    variant: "default",
-  },
-});
+);
 
 export default function Page() {
   return (
-    <main className="-mt-14 text-landing-foreground pb-6 dark:text-landing-foreground-dark md:pb-12">
-      <div className="relative flex h-svh w-full overflow-hidden bg-origin-border">
-        <Hero />
+    <MotionScope className="-mt-14 text-landing-foreground pb-6 dark:text-landing-foreground-dark md:pb-12">
+      <div
+        data-motion-hero=""
+        className="relative flex h-svh w-full overflow-hidden bg-origin-border"
+      >
+        <div className="home-hero-ambient">
+          <Hero />
+        </div>
         <div className="z-2 flex h-full w-full flex-col justify-center px-4 max-lg:items-center max-lg:text-center lg:absolute lg:left-[clamp(88px,11.5vw,220px)] lg:top-[23vh] lg:h-[32vh] lg:w-[680px] lg:max-w-[52vw] lg:translate-x-[50px] lg:translate-y-[30px] lg:px-0">
-          <p className="text-xs text-brand font-medium rounded-full p-2 border border-brand/50 w-fit">
+          <p
+            data-motion-hero-item=""
+            className="text-xs text-brand font-medium rounded-full p-2 border border-brand/50 w-fit"
+          >
             震撼美味
           </p>
-          <h1 className="text-4xl my-8 leading-tighter font-medium xl:text-5xl xl:mb-12">
+          <h1
+            data-motion-hero-item=""
+            className="text-4xl my-8 leading-tighter font-medium xl:text-5xl xl:mb-12"
+          >
             解锁手环的高级玩法，
             <br />从 <span className="text-brand">Shell++</span> 开始
           </h1>
-          <div className="flex flex-row items-center justify-center gap-4 flex-wrap w-fit">
+          <div
+            data-motion-hero-item=""
+            className="flex flex-row items-center justify-center gap-4 flex-wrap w-fit"
+          >
             <Link
               href="/docs"
               className={cn(buttonVariants(), "max-sm:text-sm")}
@@ -86,7 +104,7 @@ export default function Page() {
         </div>
       </div>
       <div className="grid grid-cols-1 gap-10 mt-12 px-6 mx-auto w-full max-w-[1400px] md:px-12 lg:grid-cols-2 lg:mt-20">
-        <p className="text-2xl tracking-tight leading-snug font-light col-span-full md:text-3xl xl:text-4xl">
+        <p className="motion-reveal text-2xl tracking-tight leading-snug font-light col-span-full md:text-3xl xl:text-4xl">
           Shell++ 将{" "}
           <span className="text-brand font-medium">Vela Quick App</span>、
           <span className="text-brand font-medium">Lua 后端</span>、Android
@@ -100,7 +118,7 @@ export default function Page() {
         <ForNonEnginners />
         <OpenSource />
       </div>
-    </main>
+    </MotionScope>
   );
 }
 

@@ -1,17 +1,18 @@
 ---
-title: 设备测试
-description: 检查设备连接和 Shell++ 基础能力是否正常
+title: 设备性能测试
+description: 测试设备性能并记录结果
 ---
 
-## 开始测试
+## 功能说明
 
-先确认手环端已启动，接收端能够看到目标设备，并且 Quick App、Lua 资源和接收端来自同一版本。
+设备性能测试用于快速了解当前设备的运行性能。测试前，请确保 Shell++ Quick App 与 Lua 后端均已正常启动。
 
-## 测试项目
+## 使用方法
 
-- 发现设备并完成握手。
-- 获取一张测试截图。
-- 执行一条简单的远程命令。
-- 查看设备状态和运行日志。
+1. 打开 Shell++ Quick App。
+2. 进入“设备与性能”。
+3. 按照页面提示启动测试并等待结果生成。
+
+<InvertImage>![设备性能测试结果](./images/device-benchmark.png)</InvertImage>
 
 如果某一步失败，记录失败步骤、设备型号、接收端版本和日志，再前往[常见连接问题](/docs/common-connection-issues/)排查。
