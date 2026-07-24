@@ -23,7 +23,7 @@ export default function Layout({ children }: LayoutProps<"/">) {
               api: withBasePath("/api/search"),
             },
           }}
-          theme={{ defaultTheme: "dark", disableTransitionOnChange: false }}
+          theme={{ defaultTheme: "system", disableTransitionOnChange: false }}
         >
           {children}
         </RootProvider>
