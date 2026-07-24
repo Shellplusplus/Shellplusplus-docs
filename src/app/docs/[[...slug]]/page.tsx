@@ -42,23 +42,26 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
   const titleMatchesFirstHeading =
     normalizeTitle(page.data.title) === normalizeTitle(firstHeading?.title);
   const showPageHeader = Boolean(page.data.title && !titleMatchesFirstHeading);
+  const transitionKey = params.slug?.join("/") ?? "index";
 
   return (
     <DocsPage toc={page.data.toc} full={page.data.full}>
-      {showPageHeader && <DocsTitle>{page.data.title}</DocsTitle>}
-      {showPageHeader && page.data.description && (
-        <DocsDescription className="mb-0">
-          {page.data.description}
-        </DocsDescription>
-      )}
-      <DocsBody>
-        <MDX
-          components={getMDXComponents({
-            // this allows you to link to other pages with relative file paths
-            a: createRelativeLink(source, page),
-          })}
-        />
-      </DocsBody>
+      <div key={transitionKey} className="docs-page-transition">
+        {showPageHeader && <DocsTitle>{page.data.title}</DocsTitle>}
+        {showPageHeader && page.data.description && (
+          <DocsDescription className="mb-0">
+            {page.data.description}
+          </DocsDescription>
+        )}
+        <DocsBody>
+          <MDX
+            components={getMDXComponents({
+              // this allows you to link to other pages with relative file paths
+              a: createRelativeLink(source, page),
+            })}
+          />
+        </DocsBody>
+      </div>
     </DocsPage>
   );
 }
